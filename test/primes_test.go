@@ -1,8 +1,12 @@
 package testprimes
 
-import "testing"
-import "../src"
+import (
+	"testing"
 
+	"github.com/JoseFMP/prime-tools/src/prime"
+	"github.com/stretchr/testify/require"
+)
+  
 func TestPrimes(t *testing.T) {
 
 	primesToTest := make(map[int]bool)
@@ -26,13 +30,10 @@ func TestPrimes(t *testing.T) {
 	primesToTest[16] = false
 	primesToTest[17] = true
 	primesToTest[18] = false
+	primesToTest[19] = true
 
 	for num, isPrim := range primesToTest {
-
-		if prime.IsPrime(num) != isPrim {
-			t.Errorf("Screwed up checking if %d is prime. Expected: %t", num, isPrim)
-			t.FailNow()
-		}
+		require.Equalf(t, isPrim, prime.IsPrime(num), "Screwed up checking if %d is prime. Expected: %t", num, isPrim)
 	}
 
 }
